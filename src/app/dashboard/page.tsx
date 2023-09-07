@@ -5,7 +5,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
 function Page() {
   const router = useRouter();
@@ -23,8 +23,33 @@ function Page() {
       <button onClick={handleClick} className="bg-blue-500 inline-block p-1">
         to /dashboard
       </button>
+
+      {/*
+        ## streaming
+        The components specified in the fallback below are depicted separately.
+
+        streaming 1　⇨ after fetching  json.username(Bred ..etc)
+        streaming 2
+        streaming 3
+      */}
+      <Suspense fallback={<p>streaming 1</p>}>
+        <Fetch />
+      </Suspense>
+
+      <Suspense fallback={<p>streaming 2</p>}>
+        <Fetch />
+      </Suspense>
+
+      <Suspense fallback={<p>streaming 3</p>}>
+        <Fetch />
+      </Suspense>
     </div>
   );
 }
 
+const Fetch = async () => {
+  const data = await fetch("https://jsonplaceholder.typicode.com/users/1");
+  const json = await data.json();
+  return <main className="text-red-500">{json.username}</main>;
+};
 export default Page;
