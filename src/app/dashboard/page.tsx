@@ -6,6 +6,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorHnadle from "./error";
 
 function Page() {
   const router = useRouter();
@@ -43,6 +45,19 @@ function Page() {
       <Suspense fallback={<p>streaming 3</p>}>
         <Fetch />
       </Suspense>
+
+      <ErrorBoundary
+        fallback={
+          <ErrorHnadle
+            error={new Error("Something wrong")}
+            reset={() => router.push("/")}
+          ></ErrorHnadle>
+        }
+      >
+        <Suspense fallback={<p>streaming fetch error</p>}>
+          <FetchEroor />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }
@@ -51,5 +66,9 @@ const Fetch = async () => {
   const data = await fetch("https://jsonplaceholder.typicode.com/users/1");
   const json = await data.json();
   return <main className="text-red-500">{json.username}</main>;
+};
+
+const FetchEroor = async () => {
+  throw new Error("something wrong");
 };
 export default Page;
