@@ -12,19 +12,23 @@ const isLogin = getUser();
 
 export default function RootLayout({
   children,
-  conditionalRoutes,
-  conditionalRoutesLogin,
+  conditional1,
+  conditional2,
+  modal,
 }: {
   children: React.ReactNode;
-  conditionalRoutes: React.ReactNode;
-  conditionalRoutesLogin: React.ReactNode;
+  conditional1: React.ReactNode;
+  conditional2: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body>
-        {isLogin ? conditionalRoutes : conditionalRoutesLogin}
+        {isLogin ? conditional1 : conditional2}
         this is app/layout.tsx
         {children}
+        {/* it is Intercepting Routes. https://nextjs.org/docs/app/building-your-application/routing/intercepting-routes*/}
+        {modal}
       </body>
     </html>
   );
