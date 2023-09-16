@@ -14,11 +14,18 @@ export default function Page() {
 
   return (
     <>
-      <div>
+      <div className="space-y-3">
         <h1>Hello, Next.js!</h1>
-        <Link href="/dashboard" className="bg-blue-500 p-1">
-          to /dashboard
-        </Link>
+        <div>
+          <Link href="/dashboard" className="bg-blue-500 p-1">
+            to /dashboard
+          </Link>
+        </div>
+        <div>
+          <Link href="/dataFetch" className="bg-blue-500 p-1">
+            to /dataFetch
+          </Link>
+        </div>
       </div>
       <div className="container mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 auto-rows-max	 gap-6 m-10">
